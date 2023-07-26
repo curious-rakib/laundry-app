@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "6498a4610d9d72b9b35ec0cb",
+    "name": "Dry Clean"
+  },
+  {
+    "_id": "6498a4980d9d72b9b35ec0cc",
+    "name": "Wet Wash"
+  },
+  {
+    "_id": "6498a4bd0d9d72b9b35ec0cd",
+    "name": "Press"
+  },
+  {
+    "_id": "6498a4ce0d9d72b9b35ec0ce",
+    "name": "Wash + Press"
+  }
+]

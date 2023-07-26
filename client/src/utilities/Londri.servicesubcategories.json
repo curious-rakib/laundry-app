@@ -1,0 +1,80 @@
+[
+  {
+    "_id": "64bf436e4402194f88e4fc2c",
+    "name": "T-Shirt",
+    "type": "Men",
+    "price": 20
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc2d",
+    "name": "Jeans",
+    "type": "Men",
+    "price": 30
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc2e",
+    "name": "Shirt",
+    "type": "Men",
+    "price": 40
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc2f",
+    "name": "Pant",
+    "type": "Men",
+    "price": 50
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc30",
+    "name": "Borka",
+    "type": "Women",
+    "price": 60
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc31",
+    "name": "Saree",
+    "type": "Women",
+    "price": 70
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc32",
+    "name": "Salwar Kameez",
+    "type": "Women",
+    "price": 80
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc33",
+    "name": "Uniform",
+    "type": "Kids",
+    "price": 10
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc34",
+    "name": "Party Dress",
+    "type": "Kids",
+    "price": 30
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc35",
+    "name": "Frock",
+    "type": "Kids",
+    "price": 50
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc36",
+    "name": "Bed sheets",
+    "type": "Others",
+    "price": 90
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc37",
+    "name": "Curtains",
+    "type": "Others",
+    "price": 100
+  },
+  {
+    "_id": "64bf436e4402194f88e4fc38",
+    "name": "Blanket",
+    "type": "Others",
+    "price": 80
+  }
+]
