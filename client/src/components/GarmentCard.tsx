@@ -31,6 +31,7 @@ const GarmentCard = ({
     service: Service;
   }) => {
     if (count <= 0) return;
+    setCount(0);
     setCart((cart: Cart[]) => [...cart, { subCategory, count, service }]);
   };
 

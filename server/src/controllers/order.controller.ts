@@ -43,7 +43,6 @@ export const createOrder = async (req: any, res: Response) => {
       deliveryType,
     };
 
-    console.log(orderPayload);
     await OrderSchemaModel.create(orderPayload);
     res.status(201).send(true);
   } catch (error) {
@@ -62,7 +61,6 @@ export const getOrderByUser = async (req: Request, res: Response) => {
     const orders = await OrderSchemaModel.find({ user: userId })
       .populate('serviceSubCategory')
       .populate('service')
-      .populate('user')
       .exec();
 
     res.status(200).json(orders);
@@ -134,6 +132,22 @@ export const getOrders = async (req: any, res: Response) => {
       .exec();
 
     res.status(200).json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Failed to fetch order');
+  }
+};
+
+export const getOrderById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const order = await OrderSchemaModel.findById(id)
+      .populate('serviceSubCategory')
+      .populate('service')
+      .populate('user')
+      .exec();
+
+    res.status(200).json(order);
   } catch (error) {
     console.log(error);
     res.status(500).send('Failed to fetch order');

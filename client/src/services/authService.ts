@@ -42,6 +42,22 @@ export const loginUserService = async (data: any) => {
   return await response.json();
 };
 
+export const logoutUserService = async () => {
+  const token = localStorage.getItem('accessToken');
+
+  const response = await fetch(`http://127.0.0.1:4000/logout`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `${token}`,
+    },
+  });
+
+  console.log(response);
+
+  return await response.json();
+};
+
 export const ProfileUserService = async () => {
   const token = localStorage.getItem('accessToken');
 

@@ -3,7 +3,6 @@ import cartIcon from './../images/svg/cart.svg';
 import profile from './../images/svg/profile.svg';
 import { useNavigate } from 'react-router-dom';
 import { Cart } from '../models/servicemodel';
-import { useEffect } from 'react';
 
 const Navbar = ({ cart }: { cart: Cart[] }) => {
   const navigate = useNavigate();
@@ -19,8 +18,6 @@ const Navbar = ({ cart }: { cart: Cart[] }) => {
   const gotoProfile = () => {
     navigate('/profile');
   };
-
-  useEffect(() => {}, [cart]);
 
   return (
     <div className='btm-nav bg-[#E3887B]'>

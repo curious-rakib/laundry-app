@@ -1,12 +1,8 @@
-import {
-  createSession,
-  getSession,
-  destroySession,
-} from "../jwtAuthentication";
-import bcrypt from "bcrypt";
+import { createSession, getSession, destroySession } from '../jwtAuthentication';
+import bcrypt from 'bcrypt';
 const saltRounds = 10;
-import { Request, Response } from "express";
-import { UserModel } from "../models/user";
+import { Request, Response } from 'express';
+import { UserModel } from '../models/user';
 
 const userExists = async (phone: string) => {
   const user = await UserModel.findOne({ phone });
@@ -38,12 +34,12 @@ const checkCredential = async (phone: string, password: string) => {
 
 const create = async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log("Register is being hit!");
+    console.log('Register is being hit!');
     let { fullName, phone, address, password, type } = req.body;
     phone = phone.toLowerCase();
     password = await hashPassword(password);
     if (await userExists(phone)) {
-      res.status(401).send("Phone already exists! Try another phone.");
+      res.status(401).send('Phone already exists! Try another phone.');
       return;
     }
     const user = await UserModel.create({
@@ -56,7 +52,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
     res.status(201).send(user);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Failed to Register");
+    res.status(500).send('Failed to Register');
   }
 };
 
@@ -65,11 +61,11 @@ const login = async (req: Request, res: Response) => {
     let { phone, password } = req.body;
     phone = phone.toLowerCase();
     if (!(await checkCredential(phone, password))) {
-      return res.status(401).send("Credenitials dont match!");
+      return res.status(401).send('Credenitials dont match!');
     }
 
     const token = createSession(phone);
-    res.cookie("accessToken", token, {
+    res.cookie('accessToken', token, {
       httpOnly: false,
       secure: false,
       //   sameSite: "Strict",
@@ -78,7 +74,7 @@ const login = async (req: Request, res: Response) => {
     res.status(201).send({ accessToken: token });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Failed to Login!");
+    res.status(500).send('Failed to Login!');
   }
 };
 
@@ -92,23 +88,22 @@ const profile = async (req: Request, res: Response) => {
     const user = await UserModel.findOne({ phone: userPhone });
     res.status(200).json({
       ...user.toObject(),
-      password: undefined
-    })
+      password: undefined,
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Profile Unavailable");
+    res.status(500).send('Profile Unavailable');
   }
 };
 
 const logout = (req: Request, res: Response) => {
   try {
     const token = req.cookies.accessToken || req.get('Authorization');
-    if (destroySession(token))
-      return res.status(200).send("Successfully logged out!");
-    res.status(500).send("ERROR while logging out !");
+    if (destroySession(token)) return res.status(200).send(true);
+    res.status(200).send(true);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Logout failed!");
+    res.status(500).send(false);
   }
 };
 

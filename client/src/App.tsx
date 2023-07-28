@@ -12,11 +12,16 @@ import { useState } from 'react';
 import { Cart, Order, Service } from './models/servicemodel';
 import CartPage from './pages/CartPage';
 import ProfilePage from './pages/ProfilePage';
+import LaundryOwnerPage from './pages/laundryOwnerPage';
+import OrderDetailsPage from './pages/OrderDetailsPage';
+import OwnerProfilePage from './pages/OwnerProfilePage';
+import Protection from './components/Protection';
 
 function App() {
   const [service, setService] = useState<Service | null>(null);
   const [cart, setCart] = useState<Cart[]>([]);
   const [order, setOrder] = useState<Order[]>([]);
+  const [isSignIn, SetIsSignIn] = useState<Boolean>(false);
 
   return (
     <AuthHere>
@@ -26,29 +31,44 @@ function App() {
           <Route path='auth'>
             <Route index element={<Authpage />}></Route>
             <Route path='registration' element={<Register />} />
-            <Route path='login' element={<Login />} />
+            <Route path='login' element={<Login setIsSignIn={SetIsSignIn} />} />
           </Route>
-          <Route
-            path='home'
-            element={<Homepage service={service} setService={setService} cart={cart} />}
-          />
-          <Route path='profile' element={<ProfilePage cart={cart} />} />
-          <Route
-            path='add-garment'
-            element={<Addgarment service={service} cart={cart} setCart={setCart} />}
-          />
-          <Route
-            path='cart'
-            element={
-              <CartPage
-                cart={cart}
-                setCart={setCart}
-                service={service!}
-                order={order}
-                setOrder={setOrder}
-              />
-            }
-          />
+          <Route element={<Protection isSignIn={isSignIn} />}>
+            <Route
+              path='home'
+              element={<Homepage service={service} setService={setService} cart={cart} />}
+            />
+            <Route
+              path='profile'
+              element={
+                <ProfilePage
+                  cart={cart}
+                  order={order}
+                  setOrder={setOrder}
+                  setIsSignIn={SetIsSignIn}
+                />
+              }
+            />
+            <Route
+              path='add-garment'
+              element={<Addgarment service={service} cart={cart} setCart={setCart} />}
+            />
+            <Route
+              path='cart'
+              element={
+                <CartPage
+                  cart={cart}
+                  setCart={setCart}
+                  service={service!}
+                  order={order}
+                  setOrder={setOrder}
+                />
+              }
+            />
+            <Route path='owner' element={<LaundryOwnerPage />} />
+            <Route path='owner-profile' element={<OwnerProfilePage setIsSignIn={SetIsSignIn} />} />
+            <Route path='order-details/:orderId' element={<OrderDetailsPage />} />
+          </Route>
         </Route>
       </Routes>
     </AuthHere>

@@ -22,7 +22,7 @@ const Homepage = ({
 
   const serviceImages = [dryClean, wetWash, press, washPress];
 
-  const selectService = (service: Service) => {
+  const selectService = async (service: Service) => {
     setService(service);
     navigate('/add-garment');
   };

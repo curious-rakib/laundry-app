@@ -1,4 +1,3 @@
-import { json } from 'stream/consumers';
 import type { CategoryType, Order } from './../models/servicemodel';
 
 export const getAllServicesService = async () => {
@@ -73,4 +72,51 @@ export const getUserOrdersService = async (id: string) => {
   });
 
   return await response.json();
+};
+
+export const getAllOrders = async () => {
+  const BASE_API_URL = 'http://127.0.0.1:4000';
+
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch(`${BASE_API_URL}/orders`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `${token}`,
+    },
+  });
+
+  return await response.json();
+};
+
+export const getOrderById = async (id: string) => {
+  const BASE_API_URL = 'http://127.0.0.1:4000';
+
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch(`${BASE_API_URL}/order/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `${token}`,
+    },
+  });
+
+  return await response.json();
+};
+
+export const updateOrderStatus = async (orderId: string, status: string) => {
+  const BASE_API_URL = 'http://127.0.0.1:4000';
+  const Data = JSON.stringify({ orderId, status });
+
+  const token = localStorage.getItem('accessToken');
+  const response = await fetch(`${BASE_API_URL}/update-order-status`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `${token}`,
+    },
+    body: Data,
+  });
+
+  return await response.text();
 };

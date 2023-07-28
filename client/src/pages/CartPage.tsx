@@ -6,6 +6,7 @@ import logo from '../images/logo1.svg';
 import { Cart, Order, Service } from '../models/servicemodel';
 import { ProfileUserService } from '../services/authService';
 import { makeAnOrderService } from '../services/allservices';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = ({
   cart,
@@ -23,6 +24,8 @@ const CartPage = ({
   const [urgent, setUrgent] = useState(false);
   const [cost, setcost] = useState(0);
   const [instructions, setInstructions] = useState('');
+
+  const navigate = useNavigate();
 
   const active = 'btn bg-[#E3887B] text-white border-none shadow-md';
   const notActive = 'btn bg-gray-300 text-gray-500 border-none shadow-md';
@@ -62,14 +65,19 @@ const CartPage = ({
   }, [cart, instructions, urgent]);
 
   const submitOrder = async () => {
-    if (order.length <= 0) return;
+    if (order.length <= 0) {
+      toast.error('Order failed');
+      return;
+    }
 
-    const newOrders = order.map(async (oneOrder) => {
+    order.map(async (oneOrder) => {
       const newOrder = await makeAnOrderService(oneOrder);
       return newOrder;
     });
 
-    toast;
+    setCart([]);
+    toast.success('Order successfull');
+    navigate('/home');
   };
 
   return (

@@ -1,27 +1,13 @@
-import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 import logo from '../images/logo1.svg';
 import { ProfileUserService, logoutUserService } from '../services/authService';
-import { Cart, Order, OrderDetails } from '../models/servicemodel';
-import { getUserOrdersService } from '../services/allservices';
-import OrderCard from '../components/OrderCard';
-import { useNavigate } from 'react-router-dom';
+import NavbarOwner from '../components/NavbarOwner';
+import { useEffect, useState } from 'react';
 
-const ProfilePage = ({
-  cart,
-  order,
-  setOrder,
-  setIsSignIn,
-}: {
-  cart: Cart[];
-  order: Order[];
-  setOrder: Function;
-  setIsSignIn: Function;
-}) => {
+const OwnerProfilePage = ({ setIsSignIn }: { setIsSignIn: Function }) => {
   const [name, setName] = useState<string>('');
   const [address, setAddress] = useState<string>('');
   const [mobile, setMobile] = useState<string>('');
-  const [orders, setOrders] = useState<any[]>([]);
 
   const navigate = useNavigate();
 
@@ -29,9 +15,6 @@ const ProfilePage = ({
     const getProfile = async () => {
       const profile = await ProfileUserService();
 
-      const getOrders = await getUserOrdersService(profile._id);
-
-      setOrders(getOrders);
       setName(profile.fullName);
       setAddress(profile.address);
       setMobile(profile.phone);
@@ -41,12 +24,12 @@ const ProfilePage = ({
 
   const loggedOut = async () => {
     const isLoggedOut = await logoutUserService();
+
     if (isLoggedOut) {
       setIsSignIn(false);
       navigate('/');
     }
   };
-
   return (
     <div className='overflow-y-auto' style={{ height: '92.5%' }}>
       <div className='flex flex-col items-center justify-start gap-4 mb-4'>
@@ -83,15 +66,10 @@ const ProfilePage = ({
           </button>
         </div>
 
-        {orders.length > 0 &&
-          orders.map((oneOrder: OrderDetails) => {
-            return <OrderCard order={oneOrder} />;
-          })}
+        <NavbarOwner />
       </div>
-
-      <Navbar cart={cart} />
     </div>
   );
 };
 
-export default ProfilePage;
+export default OwnerProfilePage;

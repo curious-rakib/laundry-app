@@ -12,6 +12,7 @@ import {
   updateOrderStatus,
   getOrders,
   getAllSubCategories,
+  getOrderById,
 } from './controllers';
 import { upload } from './multer';
 
@@ -26,6 +27,7 @@ router.get('/all-sub-categories', authMiddleware, getAllSubCategories);
 
 //Orders
 router.get('/orders', authMiddleware, getOrders);
+router.get('/order/:id', authMiddleware, getOrderById);
 router.get('/user-orders', authMiddleware, getOrderByUser);
 router.get('/user-orders-by-service-sub-category', authMiddleware, getOrderByUser);
 
